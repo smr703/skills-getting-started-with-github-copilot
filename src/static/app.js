@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const activitySelect = document.getElementById("activity");
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
+  let messageTimeoutId;
 
   function escapeHtml(value) {
     return value
@@ -15,10 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showMessage(text, status) {
     messageDiv.textContent = text;
-    messageDiv.className = status;
+    messageDiv.classList.remove("success", "error", "info", "hidden");
+    messageDiv.classList.add("message", status);
     messageDiv.classList.remove("hidden");
 
-    setTimeout(() => {
+    clearTimeout(messageTimeoutId);
+    messageTimeoutId = setTimeout(() => {
       messageDiv.classList.add("hidden");
     }, 5000);
   }
